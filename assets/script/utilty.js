@@ -38,5 +38,14 @@ function onEvent(selector, event, callback) {
   function filterArray(array, callback) {
     return array.filter(callback);
   }
+   function validateContact(input) {
+    // Basic validation rule: must contain exactly two commas
+    return (input.match(/,/g) || []).length === 2;
+  }
+   function validateEmail(email) {
+    const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regex.test(email);
+  }
+  
 
-  export {onEvent, getElement, select};
+  export {onEvent, getElement, select, validateContact,validateEmail};
