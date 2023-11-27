@@ -1,20 +1,20 @@
 'use strict';
-console.log('hello')
 import {select, getElement, onEvent, validateContact,validateEmail} from "./utilty.js";
 import { Contact } from './Contact.js';
 
 
 
   const contacts = [];
-  const feedbackElement = document.getElementById('feedback');
+  const feedbackElement = getElement('feedback');
+  const mainInput= getElement('contactInfo');
 
   function showFeedback(message, isError = true) {
     feedbackElement.textContent = message;
     feedbackElement.style.color = isError ? 'red' : 'green';
   }
 
-  document.getElementById('addBtn').addEventListener('click', function() {
-    const contactInfoValue = document.getElementById('contactInfo').value;
+  getElement('addBtn').addEventListener('click', function() {
+    const contactInfoValue = getElement('contactInfo').value;
     const [name, city, email] = contactInfoValue.split(',').map(s => s.trim());
 
     if (name && city && validateEmail(email)) {
@@ -22,14 +22,14 @@ import { Contact } from './Contact.js';
       contacts.push(contact);
       listContacts();
       showFeedback('Contact added successfully.', false);
-      contactInfoInput.value = '';
+      mainInput.value = '';
     } else {
       showFeedback('Invalid input or email format. Please enter the information in the format: Name, City, valid Email.');
     }
   });
 
   function listContacts() {
-    const contactsDiv = document.getElementById('contacts');
+    const contactsDiv = getElement('contacts');
     contactsDiv.innerHTML = ''; // Clear the list
     contacts.forEach((contact, index) => {
       const contactCard = document.createElement('div');
@@ -45,12 +45,12 @@ import { Contact } from './Contact.js';
     console.log('Contacts listed.');
   }
 // Access the modal, confirm, and cancel buttons
-const modal = document.getElementById('delete-confirmation-modal');
-const confirmBtn = document.getElementById('confirm-delete');
-const cancelBtn = document.getElementById('cancel-delete');
+const modal = getElement('delete-confirmation-modal');
+const confirmBtn = getElement('confirm-delete');
+const cancelBtn = getElement('cancel-delete');
 
 function showConfirmationModal(message) {
-  document.getElementById('modal-text').textContent = message;
+  getElement('modal-text').textContent = message;
   modal.style.display = 'block'; // Show the modal
 }
 
